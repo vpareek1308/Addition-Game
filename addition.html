@@ -59,37 +59,55 @@
             }
             function inputKeyPress(event) {
                 if(event.key === "Enter") {
-                    const answer = parseInt(state.response)
-                    if(state.num1+state.num2 != answer) {
-                        if(state.score != 0) {
-                            setState({
-                                ...state,
-                                num1: Math.ceil(Math.random()*10),
-                                num2: Math.ceil(Math.random()*10),
-                                score: state.score-1,
-                                response: "",
-                                incorrect: true,
-                            })
+                    if(state.response != "") {
+                        const answer = parseInt(state.response)
+                        if(state.num1+state.num2 != answer) {
+                            if(state.score != 0) {
+                                setState({
+                                    ...state,
+                                    num1: Math.ceil(Math.random()*10),
+                                    num2: Math.ceil(Math.random()*10),
+                                    score: state.score-1,
+                                    response: "",
+                                    incorrect: true,
+                                })
+                            }
+                            else {
+                                setState({
+                                    ...state,
+                                    num1: Math.ceil(Math.random()*10),
+                                    num2: Math.ceil(Math.random()*10),
+                                    response: "",
+                                    incorrect: true,
+                                })
+                            }
                         }
                         else {
                             setState({
                                 ...state,
                                 num1: Math.ceil(Math.random()*10),
                                 num2: Math.ceil(Math.random()*10),
+                                score: state.score+1,
                                 response: "",
-                                incorrect: true,
+                                incorrect: false,
                             })
                         }
                     }
                     else {
-                        setState({
-                            ...state,
-                            num1: Math.ceil(Math.random()*10),
-                            num2: Math.ceil(Math.random()*10),
-                            score: state.score+1,
-                            response: "",
-                            incorrect: false,
-                        })
+                        alert("The answer field cannot be empty. Please enter an answer!");
+                        if(state.score != 0) {
+                            setState({
+                                ...state,
+                                score: state.score-1,
+                                incorrect: true,
+                            });
+                        }
+                        else {
+                            setState({
+                                ...state,
+                                incorrect: true,
+                            });
+                        }
                     }
                 }
             }
